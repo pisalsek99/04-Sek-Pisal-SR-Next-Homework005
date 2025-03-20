@@ -1,37 +1,27 @@
 "use client";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 const SearchComponent = () => {
 
   const router = useRouter();
   const pathname = usePathname(); 
+  const searchParam = useSearchParams()
   const [searchData, setSearchData] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedSearch(searchData);
-    }, 300);
-
-    return () => clearTimeout(handler);
-  }, [searchData]);
-
-  useEffect(() => {
-    if (pathname === "/") return; 
-
-    const newUrl = debouncedSearch.trim()
-      ? `/book-categories?search=${encodeURIComponent(debouncedSearch)}`
-      : `/book-categories`;
-
-    if (newUrl !== pathname) {
-      router.push(newUrl);
-    }
-  }, [debouncedSearch, router, pathname]);
+  const handleSubmit = () => {
+      const params = new URLSearchParams(searchParam);
+      if(pathname === "/book-categories"){
+        params.delete("query")
+        params.set("search",searchData )
+      }else{
+        params.delete("search")
+      }
+      router.push(`${pathname}?${params.toString()}`)
+  }
 
   return (
     <div>
-      <form className="relative w-full">
+      <form className="relative w-full" action="" onSubmit={handleSubmit}>
       
         <button type="button" className="cursor-pointer absolute top-3 left-4">
           <svg
@@ -52,9 +42,9 @@ const SearchComponent = () => {
 
         <input
           id="searchInput"
-          name="default-search"
+          name="search"
           type="text"
-          placeholder="Search assignment here"
+          placeholder="Search..."
           value={searchData}
           onChange={(e) => setSearchData(e.target.value)}
           className="w-full bg-white py-3 pl-14 pr-5 rounded-xl h-12 shadow-md border-none outline-none focus:ring-0"

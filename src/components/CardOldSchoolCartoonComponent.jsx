@@ -1,20 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import eye from "../../public/eye.svg";
 import Link from "next/link";
 
-const CardOldSchoolCartoonComponent = ({ oldSchoolCartoons }) => {
-  const [searchResults, setSearchResults] = useState([]);
-
-  useEffect(() => {
-    setSearchResults(oldSchoolCartoons);
-  }, [oldSchoolCartoons]);
-
+const CardOldSchoolCartoonComponent = ({ cartoons }) => {
+  console.log(cartoons)
   return (
     <div className="flex flex-wrap justify-around h-screen mt-28 gap-10">
-      {searchResults.length > 0 ? (
-        searchResults.map((items, index) => (
+      {cartoons.map((items, index) => (
           <div
             key={index}
             className="w-[330px] mb-6 rounded-xl dark:bg-gray-800 dark:border-gray-700"
@@ -41,14 +35,9 @@ const CardOldSchoolCartoonComponent = ({ oldSchoolCartoons }) => {
               </div>
             </Link>
           </div>
-        ))
-      ) : (
-        <p className="text-center text-gray-500 dark:text-gray-400">
-          No cartoons found.
-        </p>
-      )}
+        ))}
     </div>
   );
 };
 
-export default CardOldSchoolCartoonComponent;
+export default CardOldSchoolCartoonComponent

@@ -1,20 +1,14 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
 
 const CardBookComponent = ({ books }) => {
-  const [searchResults, setSearchResults] = useState([]);
-  useEffect(() => {
-    setSearchResults(books);
-  }, [books]);
-
   return (
     <div className="flex flex-wrap justify-around h-screen mt-28 gap-10">
-      {searchResults.length > 0 ? (
-        searchResults.map((book, index) => (
+      {  
+        books.map((book, index) => (
           <div
             key={index}
-            className="relative w-[527px] h-[210px] bg-[#F5F7F8] mt-20 rounded-xl shadow-md py-4 px-8 flex space-x-6"
+            className="relative w-[527px] bg-[#F5F7F8] h-[210px] mt-20 rounded-xl shadow-md py-4 px-8 flex space-x-6"
           >
             <div className="flex flex-col justify-between">
               <img
@@ -42,10 +36,7 @@ const CardBookComponent = ({ books }) => {
               </div>
             </div>
           </div>
-        ))
-      ) : (
-        <p className="text-gray-600 text-lg mt-10">No books found.</p>
-      )}
+        ))}
     </div>
   );
 };

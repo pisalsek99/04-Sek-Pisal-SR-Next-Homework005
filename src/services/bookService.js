@@ -21,7 +21,7 @@ export const getAllBookCategories = async () => {
     console.error("Error fetching book categories:", error);
   }
 };
-// /api/cartoon_genre
+
 // Get all cartoon genres(categories)
 export const getAllCartoonsCategories = async () => {
   try {
@@ -89,3 +89,32 @@ export const getBooksByCategoryId = async (id) => {
     return null;
   }
 };
+// Get cartoons by cartoon category id
+export const getCartoonsCategoryById = async (id) => {
+  try {
+    const response = await fetch(
+      `https://nextjs-homework005.vercel.app/api/cartoon?genre=${id}`
+    );
+    const data = await response.json();
+    return data.payload || null;
+  } catch (error) {
+    console.error("Error fetching cartoons by category id:", error);
+    return null;
+  }
+};
+
+// Search cartoons by title
+export const searchCartoonByTitle = async (searchTerm) => {
+  try {
+    const response = await fetch(
+      `https://nextjs-homework005.vercel.app/api/cartoon?search=${searchTerm}`
+    );
+    const data = await response.json();
+    return data.payload || null;
+  } catch (error) {
+    console.error("Error fetching cartoons by title:", error);
+    return null;
+  }
+};
+
+

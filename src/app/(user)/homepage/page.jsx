@@ -1,8 +1,12 @@
+"use client"
+import React, { useState } from "react";
 import BookCategoriesComponent from "@/components/BookCategoriesComponent";
 import OldSchoolCartoonsComponent from "@/components/OldSchoolCartoonsComponent";
 import SearchComponent from "@/components/SearchComponent";
-import React from "react";
+import SidebarComponent from "@/components/SidebarComponent";
+
 const HomePageComponent = () => {
+  const [activeSection, setActiveSection] = useState("Home");
   return (
     <>
       <button
@@ -28,6 +32,9 @@ const HomePageComponent = () => {
         </svg>
       </button>
 
+      {/* Sidebar with Active Section */}
+      <SidebarComponent activeSection={activeSection} />
+
       <div className="p-4 sm:ml-80">
         <div className="p-4 border-gray-200 rounded-lg dark:border-gray-700">
           <div className="w-full">
@@ -45,8 +52,13 @@ const HomePageComponent = () => {
             <hr className="absolute w-[98%] top-16 border-[#087E8B] border-1 dark:border-gray-700" />
 
             <div className="flex w-full justify-around">
-              <BookCategoriesComponent />
-              <OldSchoolCartoonsComponent />
+              
+              <div onClick={() => setActiveSection("Book Categories")}>
+                <BookCategoriesComponent />
+              </div>
+              <div onClick={() => setActiveSection("Old-School Cartoons")}>
+                <OldSchoolCartoonsComponent />
+              </div>
             </div>
           </div>
         </div>
